@@ -1,6 +1,7 @@
 package com.microservice.stock.infrastructure.rest;
 
 
+import com.microservice.stock.infrastructure.exceptions.CategoryExceptions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.microservice.stock.application.dto.request.CategoryRequestDTO;
@@ -24,14 +25,15 @@ public class CategoryRestController {
 
 
     @PostMapping("/categoria")
-    public ResponseEntity<Void> saveCategory(@RequestBody CategoryRequestDTO category) {
-        categoryHandler.saveCategory(category);
-        return ResponseEntity.status(HttpStatus.CREATED).build();
+    public ResponseEntity<String> saveCategory(@RequestBody CategoryRequestDTO category) {
+        try {
+            categoryHandler.saveCategory(category);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
+        } catch (CategoryExceptions e) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("EL nombre ya existe");
+        }
     }
 
-    // Endpoint de prueba
-    @GetMapping("/hello")
-    public ResponseEntity<String> helloWorld() {
-        return ResponseEntity.ok("Hello, World!");
-    }
+
+
 }

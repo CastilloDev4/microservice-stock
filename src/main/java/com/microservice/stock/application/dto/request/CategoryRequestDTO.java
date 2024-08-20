@@ -21,6 +21,7 @@ public class CategoryRequestDTO {
 
     @NotBlank(message = "El nombre de categoria no puede estar vacio")
     @Size(max = 50, message = "El nombre de categoria no puede exceder los 50 caracteres")
+
     public String name;
 
     @NotBlank(message = "La descripcion de categoria no puede estar vacia")
