@@ -3,7 +3,8 @@ package com.microservice.stock.domain.usecase;
 import com.microservice.stock.domain.api.ICategoryServicePort;
 import com.microservice.stock.domain.model.Category;
 import com.microservice.stock.domain.spi.ICategoryPersistencePort;
-import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 
@@ -31,5 +32,10 @@ public class CategoryUserCase implements ICategoryServicePort {
     public boolean existsByName(String name) {
         return categoryPersistencePort.existsByName(name);
 
+    }
+
+    @Override
+    public Page<Category> getCategories(String order, Pageable pageable) {
+        return categoryPersistencePort.getCategories(order, pageable);
     }
 }

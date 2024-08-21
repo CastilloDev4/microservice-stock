@@ -10,10 +10,13 @@ import com.microservice.stock.domain.model.Category;
 public interface ICategoryMapperDTO {
 
     @Mapping(target = "name",source = "name")
-@Mapping(target = "description",source = "description")
+    @Mapping(target = "description",source = "description")
     @Mapping(target = "id", ignore = true)
-
-
     Category toCategory(CategoryRequestDTO categoryRequestDto);
+
+    @Mapping(target = "name",source = "name")
+    @Mapping(target = "description",source = "description")
+
+    CategoryRequestDTO toCategoryRequestDTO(Category category);
 
 }

@@ -14,6 +14,10 @@ public interface ICategoryMapper {
         @Mapping(target = "description",source = "description")
         CategoryEntity toCategoryEntity(Category category);
 
+        @Mapping(target = "name",source = "name")
+        @Mapping(target = "description",source = "description")
+        Category toCategory(CategoryEntity categoryEntity);
+
 
 
 

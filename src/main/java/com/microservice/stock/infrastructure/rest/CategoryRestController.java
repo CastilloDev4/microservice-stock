@@ -2,6 +2,7 @@ package com.microservice.stock.infrastructure.rest;
 
 
 import com.microservice.stock.infrastructure.exceptions.CategoryExceptions;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.microservice.stock.application.dto.request.CategoryRequestDTO;
@@ -24,7 +25,7 @@ public class CategoryRestController {
 
 
 
-    @PostMapping("/categoria")
+    @PostMapping("/create")
     public ResponseEntity<String> saveCategory(@RequestBody CategoryRequestDTO category) {
         try {
             categoryHandler.saveCategory(category);
@@ -32,6 +33,11 @@ public class CategoryRestController {
         } catch (CategoryExceptions e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("EL nombre ya existe");
         }
+    }
+
+    @GetMapping("/categories/{order}")
+    public ResponseEntity<?> getCategories(@PathVariable String order, Pageable pageable) {
+        return ResponseEntity.ok(categoryHandler.getCategories(order, pageable).getContent());
     }
 
 
